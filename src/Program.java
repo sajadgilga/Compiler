@@ -1,4 +1,6 @@
-public class Program 
+import Parser.*;
+
+public class Program
 {
 	// Address of PGen output table.
 	public static final String stPath = "";
