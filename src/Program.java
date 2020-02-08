@@ -4,7 +4,7 @@ public class Program
 {
 	// Address of PGen output table.
 	public static final String stPath = "";
-	
+
 	public static String inputPath = "";
 	public static String outputPath = "";
 	public static void main(String[] args)
@@ -37,36 +37,36 @@ public class Program
     		int rowSize, colSize;
     		String[] tmpArr;
     		PTBlock block;
-    		
+
     		try
     		{
     			java.io.FileInputStream fis = new java.io.FileInputStream(new java.io.File(stPath));
     			java.util.Scanner sc = new java.util.Scanner(fis);
-    			
+
     			tmpArr = sc.nextLine().trim().split(" ");
     			rowSize = Integer.parseInt(tmpArr[0]);
     			colSize = Integer.parseInt(tmpArr[1]);
-    	
+
     			String SL = sc.nextLine();
     			// This is the line creates an array of symbols depending on the parse table read.
     			symbols = SL.trim().split(" ");
-    	
+
     			parseTable = new PTBlock[rowSize][colSize];
     			for (int i = 0; sc.hasNext(); i++)
     			{
-    	
+
     				if (!sc.hasNext())
     					throw new Exception("Ivalid .npt file");
-    	
+
     				tmpArr = sc.nextLine().trim().split(" ");
-    	
+
     				//PGen generates some unused rows!
     				if (tmpArr.length == 1)
     				{
     					System.out.println("Anomally in .npt file, skipping one line");
     					continue;
     				}
-    	
+
     				if (tmpArr.length != colSize * 3)
     					throw new Exception("Ivalid line in .npt file");
     					for (int j = 0; j < colSize; j++)
@@ -77,7 +77,6 @@ public class Program
     					block.setSem(tmpArr[j * 3 + 2]);
     					parseTable[i][j] = block;
     				}
-    	
     			}
     		}
     		catch (Exception e)
@@ -121,34 +120,34 @@ public class Program
 		int rowSize, colSize;
 		String[] tmpArr;
 		PTBlock block;
-		
+
 		try
 		{
 			java.io.FileInputStream fis = new java.io.FileInputStream(new java.io.File(stPath));
 			java.util.Scanner sc = new java.util.Scanner(fis);
-			
+
 			tmpArr = sc.nextLine().trim().split(" ");
 			rowSize = Integer.parseInt(tmpArr[0]);
 			colSize = Integer.parseInt(tmpArr[1]);
-	
+
 			symbols = sc.nextLine().trim().split(" ");
-	
+
 			parseTable = new PTBlock[rowSize][colSize];
 			for (int i = 0; i < rowSize; i++)
 			{
-	
+
 				if (!sc.hasNext())
 					throw new Exception("Ivalid .npt file");
-	
+
 				tmpArr = sc.nextLine().trim().split(" ");
-	
+
 				//PGen generates some unused rows!
 				if (tmpArr.length == 1)
 				{
 					System.out.println("Anomally in .npt file, skipping one line");
 					continue;
 				}
-	
+
 				if (tmpArr.length != colSize * 3)
 					throw new Exception("Ivalid line in .npt file");
 					for (int j = 0; j < colSize; j++)
@@ -159,7 +158,7 @@ public class Program
 					block.setSem(tmpArr[j * 3 + 2]);
 					parseTable[i][j] = block;
 				}
-	
+
 			}
 		}
 		catch (Exception e)

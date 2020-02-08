@@ -11,6 +11,7 @@ public class Scanner
 {
 	public String CV;
 	public int lineNumber = 1;
+	public PascalLex lex;
 
 	public Scanner(String filename) throws Exception
 	{
@@ -22,11 +23,13 @@ public class Scanner
 		if (!f.canRead())
 			throw new Exception("Can not read input file: " + f);
 		// ...
+		BufferedReader bf = new BufferedReader(new FileReader(filename));
+		this.lex = new PascalLex(bf);
 	}
 
-	public String NextToken() throws Exception
+	public Symbol NextToken() throws Exception
 	{
-		return "someToken";
+		return this.lex.next_token();
 	}
 	
 }

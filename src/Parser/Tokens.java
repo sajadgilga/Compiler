@@ -62,4 +62,5 @@ public class Tokens {
     public static final int BOR = 59;
     public static final int LNOT = 60;
     public static final int EOF = 61;
+    public static final int MINUS = 62;
 }

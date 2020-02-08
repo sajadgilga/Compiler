@@ -1,12 +1,10 @@
 package Parser;
-
 import CodeGen.CodeGenerator;
-import Scanner.Scanner;
+import Scanner.*;
 
 import java.util.Stack;
 
-public class Parser 
-{
+public class Parser {
 	Scanner scanner;
 	CodeGenerator cg;
 	PTBlock[][] parseTable;
@@ -19,7 +17,7 @@ public class Parser
 		{
 			this.parseTable = parseTable;
 			this.symbols = symbols;
-	
+
 			scanner = new Scanner(inputFile);
 			cg = new CodeGenerator(scanner);
 		}
@@ -31,7 +29,7 @@ public class Parser
 
 	public int LineNumber()
 	{
-		return scanner.lineNumber; // Or any other name you used in your Scanner.Scanner
+		return scanner.lineNumber; // Or any other name you used in your Scanner
 	}
 
 	public void Parse()
@@ -44,51 +42,51 @@ public class Parser
 			while (notAccepted)
 			{
 				String token = symbols[tokenId];
-	            PTBlock ptb = parseTable[curNode][tokenId];
+				PTBlock ptb = parseTable[curNode][tokenId];
 				switch (ptb.getAct())
 				{
-	                case PTBlock.ActionType.Error:
-	                    {
-	                        throw new Exception(String.format("Compile Error (" + token + ") at line " + scanner.lineNumber + " @ " + curNode));
-	                    }
+					case PTBlock.ActionType.Error:
+					{
+						throw new Exception(String.format("Compile Error (" + token + ") at line " + scanner.lineNumber + " @ " + curNode));
+					}
 					case PTBlock.ActionType.Shift:
-						{
-							cg.Generate(ptb.getSem());
-							tokenId = nextTokenID();
-							curNode = ptb.getIndex();
-						}
-						break;
-	
+					{
+						cg.Generate(ptb.getSem());
+						tokenId = nextTokenID();
+						curNode = ptb.getIndex();
+					}
+					break;
+
 					case PTBlock.ActionType.PushGoto:
-						{
-							parseStack.push(curNode);
-							curNode = ptb.getIndex();
-						}
-						break;
-	
+					{
+						parseStack.push(curNode);
+						curNode = ptb.getIndex();
+					}
+					break;
+
 					case PTBlock.ActionType.Reduce:
+					{
+						if (parseStack.size() == 0)
 						{
-							if (parseStack.size() == 0)
-	                        {
-		                        throw new Exception(String.format("Compile Error (" + token + ") at line " + scanner.lineNumber + " @ " + curNode));
-	                        }
-	
-							curNode = parseStack.pop();
-							ptb = parseTable[curNode][ptb.getIndex()];
-							cg.Generate(ptb.getSem());
-							curNode = ptb.getIndex();
+							throw new Exception(String.format("Compile Error (" + token + ") at line " + scanner.lineNumber + " @ " + curNode));
 						}
-						break;
-	
+
+						curNode = parseStack.pop();
+						ptb = parseTable[curNode][ptb.getIndex()];
+						cg.Generate(ptb.getSem());
+						curNode = ptb.getIndex();
+					}
+					break;
+
 					case PTBlock.ActionType.Accept:
-						{
-							notAccepted = false;
-						}
-						break;
-						
+					{
+						notAccepted = false;
+					}
+					break;
+
 				}
-	        }
-	        cg.FinishCode();
+			}
+			cg.FinishCode();
 		}
 		catch (Exception e)
 		{
@@ -98,7 +96,8 @@ public class Parser
 
 	int nextTokenID()
 	{
-		String t = "";
+		Symbol t = null;
+//		String t = "";
 		try
 		{
 			t = scanner.NextToken();
@@ -107,19 +106,19 @@ public class Parser
 		{
 			e.printStackTrace();
 		}
-		
+
 		int i;
-		
+
 		for (i = 0; i < symbols.length; i++)
 			if (symbols[i].equals(t))
 				return i;
 		(new Exception("Undefined token: " + t)).printStackTrace();
 		return 0;
 	}
-	
+
 	public void WriteOutput(String outputFile) // You can change this function, if you think it is not comfortable
 	{
-        	cg.WriteOutput(outputFile);
+		cg.WriteOutput(outputFile);
 	}
 }
 
