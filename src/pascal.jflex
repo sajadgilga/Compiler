@@ -51,6 +51,7 @@ int bracketCount = 0;
 
 
 SingleLineComment = "--".*
+SingleLineComment2 = "//".*
 MultiLineComment = [<][-][-]([^-]|[-][^-]|[-][-][^>])*[-][-][>]
 HEX = [0][x][a-fA-F0-9]+
 StringConst = [\"][^\"]*[\"]
@@ -111,6 +112,7 @@ CharConst = ['][^'][']
         return new Symbol(PascalTok.LONG, yytext());
     }
     {SingleLineComment} {}
+    {SingleLineComment2} {}
     {MultiLineComment}  {}
     {StringConst} {
         return new Symbol(PascalTok.StringConst, yytext());
