@@ -63,4 +63,6 @@ public class Tokens {
     public static final int LNOT = 60;
     public static final int EOF = 61;
     public static final int MINUS = 62;
+    public static final int LONG = 63;
+    public static final int STRING_CONST = 64;
 }
