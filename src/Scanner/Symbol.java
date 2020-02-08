@@ -1,9 +1,9 @@
 package Scanner;
 
 public class Symbol extends java_cup.runtime.Symbol {
-    public int type;
-    public int line;
-    public int column;
+    public Integer type;
+    public Integer line;
+    public Integer column;
     public String sequence;
 
     public Symbol(int type, int line, int column, String sequence) {

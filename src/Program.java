@@ -3,14 +3,14 @@ import Parser.*;
 public class Program
 {
 	// Address of PGen output table.
-	public static final String stPath = "";
+	public static final String stPath = "./src/graph_only.npt";
 
-	public static String inputPath = "";
+	public static String inputPath = "./s1.ppp";
 	public static String outputPath = "";
 	public static void main(String[] args)
 	{
 
-        if ( args.length != 2)
+        if (args.length != 2)
         {
             System.err.println("Wrong parameters passed.");
             System.err.println("Use the following format:");
@@ -19,7 +19,7 @@ public class Program
         }
         else
         {
-	        inputPath = args[0];
+//	        inputPath = args[0];
 	        outputPath = args[1];
         }
 

@@ -110,7 +110,7 @@ public class Parser {
 		int i;
 
 		for (i = 0; i < symbols.length; i++)
-			if (symbols[i].equals(t))
+			if (symbols[i].equals(t.type.toString()))
 				return i;
 		(new Exception("Undefined token: " + t)).printStackTrace();
 		return 0;
