@@ -809,7 +809,7 @@ int bracketCount = 0;
             // fall through
           case 68: break;
           case 7: 
-            { return Symbol(Tokens.INT_CONST);
+            { return new Symbol(Tokens.INT_CONST, yytext());
             } 
             // fall through
           case 69: break;
@@ -966,12 +966,12 @@ int bracketCount = 0;
             // fall through
           case 99: break;
           case 38: 
-            { return Symbol(Tokens.HEX_CONST);
+            { return new Symbol(Tokens.HEX_CONST, yytext());
             } 
             // fall through
           case 100: break;
           case 39: 
-            { return Symbol(Tokens.REAL_CONST);
+            { return new Symbol(Tokens.REAL_CONST, yytext());
             } 
             // fall through
           case 101: break;
@@ -1016,7 +1016,7 @@ int bracketCount = 0;
             // fall through
           case 109: break;
           case 48: 
-            { return Symbol(Tokens.BOOL_CONST);
+            { return new Symbol(Tokens.BOOL_CONST, yytext());
             } 
             // fall through
           case 110: break;
